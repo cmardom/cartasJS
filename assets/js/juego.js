@@ -9,7 +9,8 @@
 // const palos  = ["C", "D", "H", "S"];
 let esTurnoDeJugador = true;
 const puntosMaximos  = 21;
-const baraja         = generarBaraja();
+let baraja           = generarBaraja();
+const velocidadComputadora = 1800; //1800ms, o 1,8 segundos
 
 document.addEventListener("DOMContentLoaded", function() {
 
@@ -18,6 +19,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const btnNuevo          = document.getElementById('btnNuevo');
     const btnPedir          = document.getElementById('btnPedir');
     const btnDetener        = document.getElementById('btnDetener');
+    const estado            = document.getElementById('estado');
 
     btnPedir.addEventListener('click', function () {
         const puntosJugador = repartirCarta(jugadorCartas);
@@ -31,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     btnNuevo.addEventListener('click', function(){
-        finDePartida();
+        nuevaPartida();
     });
 
     function repartirCarta(contenedorCartas){
@@ -48,13 +50,14 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function juegaComputadora(puntosDeJugador){
         const puntosDeComputadora = repartirCarta(computadoraCartas);
-        console.log(puntosDeComputadora);
         if(
             puntosDeJugador <= puntosMaximos &&
             puntosDeComputadora < puntosDeJugador &&
             puntosDeComputadora < puntosMaximos
         ){
-            juegaComputadora(puntosDeJugador)
+            setTimeout(() => {
+                juegaComputadora(puntosDeJugador);
+            }, velocidadComputadora);
         } else {
             if(
                 puntosDeJugador > puntosMaximos ||
@@ -63,11 +66,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 finDePartida('La computadora Gana!');
             } else
             if(puntosDeComputadora > puntosMaximos || puntosDeJugador > puntosDeComputadora){
-                console.log(1);
                 finDePartida('El jugador gana!');
             } else
             if(puntosDeComputadora === puntosDeJugador){
-                console.log(3);
                 finDePartida('Empate!');
             }
         }
@@ -75,38 +76,32 @@ document.addEventListener("DOMContentLoaded", function() {
 
     async function finDePartida(mensaje = ''){
         if(mensaje){
-            console.log(mensaje);
-            setTimeout(() => {
-                alert(mensaje);
-            }, 1);
+            estado.innerText = mensaje;
         }
-        setTimeout(() => {
-            esTurnoDeJugador = true;
-            btnPedir.removeAttribute('disabled');
-            btnDetener.removeAttribute('disabled');
+    }
 
-            marcadorElement(jugadorCartas).innerHTML     = 0;
-            marcadorElement(computadoraCartas).innerHTML = 0;
-            jugadorCartas.innerHTML                      = '';
-            computadoraCartas.innerHTML                  = '';
-        }, 3000);
+    function nuevaPartida(){
+        baraja = generarBaraja();
+        esTurnoDeJugador = true;
+        btnPedir.removeAttribute('disabled');
+        btnDetener.removeAttribute('disabled');
 
+        estado.innerHTML                             = 'Turno de jugador';
+        marcadorElement(jugadorCartas).innerHTML     = 0;
+        marcadorElement(computadoraCartas).innerHTML = 0;
+        jugadorCartas.innerHTML                      = '';
+        computadoraCartas.innerHTML                  = '';
+        resultado.innerHTML                          = '';
     }
 
     function detener(){
-        esTurnoDeJugador = !esTurnoDeJugador; //Toggle del booleano al valor contrario
+        btnPedir.setAttribute('disabled', true);
+        btnDetener.setAttribute('disabled', true);
+        estado.innerHTML = 'Turno de computadora ...';
 
-        if(!esTurnoDeJugador){
-            btnPedir.setAttribute('disabled', true);
-            btnDetener.setAttribute('disabled', true);
-
-            juegaComputadora(calcularPuntosDeJugador(jugadorCartas));
-        } else {
-            btnPedir.removeAttribute('disabled');
-            btnDetener.removeAttribute('disabled');
-        }
+        juegaComputadora(calcularPuntosDeJugador(jugadorCartas));
     }
-})
+});
 
 function generarBaraja(){
     const palos       = "CDHS".split('');

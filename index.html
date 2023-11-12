@@ -16,35 +16,41 @@
     Blackjack
 </header>
 
-<div class="row mt-2">
-    <div id="divBotones" class="col text-center">
+<div class="container-fluid">
+    <div class="row mt-2">
+        <div id="divBotones" class="col text-center">
 
-        <button id="btnNuevo" class="btn btn-danger">Nuevo Juego</button>
-        <button id="btnPedir" class="btn btn-primary">Pedir carta</button>
-        <button id="btnDetener" class="btn btn-primary">Detener</button>
+            <button id="btnNuevo" class="btn btn-danger">Nuevo Juego</button>
+            <button id="btnPedir" class="btn btn-primary">Pedir carta</button>
+            <button id="btnDetener" class="btn btn-primary">Detener</button>
 
-    </div>
-</div>
-
-<div class="row container">
-    <div class="col">
-
-        <h1>Jugador 1 - <small>0</small></h1>
-        <div id="jugador-cartas"></div>
-
-    </div>
-</div>
-
-<div class="row container mt-2">
-    <div class="col">
-
-        <h1>Computadora - <small>0</small></h1>
-        <div id="computadora-cartas">
-            <!-- <img class="carta" src="assets/cartas/3C.png"> -->
         </div>
+    </div>
 
+    <div class="row">
+        <div class="col">
+            <h3
+                id="estado"
+                class="text-center mt-3 text-warning"
+            >Turno de jugador</h3>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <h1>Jugador 1 - <small>0</small></h1>
+            <div id="jugador-cartas"></div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <h1>Computadora - <small>0</small></h1>
+            <div id="computadora-cartas"></div>
+        </div>
     </div>
 </div>
+
 
 
 <script src="assets/js/underscore-min.js"></script>
