@@ -10,7 +10,7 @@
 let esTurnoDeJugador = true;
 const puntosMaximos  = 21;
 let baraja           = generarBaraja();
-const velocidadComputadora = 1800; //1800ms, o 1,8 segundos
+const velocidadComputadora = 1200; //1200ms, o 1,2 segundos
 
 document.addEventListener("DOMContentLoaded", function() {
 
@@ -61,15 +61,12 @@ document.addEventListener("DOMContentLoaded", function() {
         } else {
             if(
                 puntosDeJugador > puntosMaximos ||
-                (puntosDeJugador < puntosDeComputadora && puntosDeComputadora <= puntosMaximos)
+                (puntosDeJugador <= puntosDeComputadora && puntosDeComputadora <= puntosMaximos)
             ){
                 finDePartida('La computadora Gana!');
             } else
-            if(puntosDeComputadora > puntosMaximos || puntosDeJugador > puntosDeComputadora){
+            if(puntosDeComputadora > puntosMaximos || puntosDeJugador > puntosDeComputadora) {
                 finDePartida('El jugador gana!');
-            } else
-            if(puntosDeComputadora === puntosDeJugador){
-                finDePartida('Empate!');
             }
         }
     }
