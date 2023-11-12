@@ -1,6 +1,6 @@
 /* QUITAR MARGEN Y ESTABLECER COLORES POR DEFECTO */
 html, body {
-    margin: 0px;
+    margin: 0;
     background-color: #2F4F30;
     color: white;
 }
@@ -19,8 +19,16 @@ html, body {
     position: relative;
     width: 150px;
     left: 100px;
-/*    margin-left: -75px;
-*/
+    margin-left: -75px;
+    animation-name: slideLeft;
+    animation-duration: .2s;
+}
+
+@keyframes slideLeft {
+    from{
+        opacity: 0;
+        margin-left: 0;
+    }
 }
 
 /* ASIGNAR ALTURA FIJA DEL DIV PARA CUANDO NO CONTENGA IMÁGENES DE CARTAS */
